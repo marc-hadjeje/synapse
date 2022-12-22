@@ -1,0 +1,10 @@
+{
+	"name": "KVMSynapse",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/Synapse-MCW/providers/Microsoft.KeyVault/vaults/KV-SynapseNew",
+		"groupId": "vault",
+		"fqdns": [
+			"kv-synapsenew.vault.azure.net"
+		]
+	}
+}

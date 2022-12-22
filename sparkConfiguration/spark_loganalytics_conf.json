@@ -1,0 +1,17 @@
+{
+	"name": "spark_loganalytics_conf",
+	"properties": {
+		"configs": {
+			"spark.synapse.logAnalytics.enabled": "true",
+			"spark.synapse.logAnalytics.workspaceId": "9b729634-6127-445e-acb0-760343aeaf1f",
+			"spark.synapse.logAnalytics.secret": "9C8+FGTVyuKZxRywWiX3q4TlQvLaT0iD0eJDMpVkzxK6imb00JQq2gy10HWl9kFWOdov1C+fzvTB67dz2Kaa6A=="
+		},
+		"created": "2022-10-19T15:20:16.149Z",
+		"createdBy": "marchadjeje@microsoft.com",
+		"configMergeRule": {
+			"artifact.currentOperation.spark.synapse.logAnalytics.enabled": "replace",
+			"artifact.currentOperation.spark.synapse.logAnalytics.workspaceId": "replace",
+			"artifact.currentOperation.spark.synapse.logAnalytics.secret": "replace"
+		}
+	}
+}

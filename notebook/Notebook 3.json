@@ -1,0 +1,204 @@
+{
+	"name": "Notebook 3",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkpool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "1f91cc24-c154-492b-99dc-465eb86be65d"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"2681b4d5-d934-4193-ab4e-b6c05db89cb5": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "gdBnAO41yn8CAAAAAAAAAA==",
+										"1": "1666711803",
+										"2": "2002",
+										"3": "235",
+										"4": "March CDB Training",
+										"5": "3/12/2031",
+										"6": {
+											"subject1": "Azure Beginner",
+											"subject2": "Cosmos DB Basics",
+											"subject3": "Importing to Cosmos DB"
+										},
+										"7": [
+											{
+												"name": "Coby"
+											},
+											{
+												"name": "Jostlin"
+											},
+											{
+												"name": "Shak"
+											}
+										],
+										"8": "\"5f01fae5-0000-0d00-0000-635800fb0000\""
+									},
+									{
+										"0": "gdBnAO41yn8BAAAAAAAAAA==",
+										"1": "1666711719",
+										"2": "2001",
+										"3": "234",
+										"4": "Feb. CDB Training",
+										"5": "2/22/2031",
+										"6": {
+											"subject1": "Azure Beginner",
+											"subject2": "Cosmos DB Basics",
+											"subject3": "Importing to Cosmos DB"
+										},
+										"7": [
+											{
+												"name": "Samphry"
+											},
+											{
+												"name": "Amand"
+											},
+											{
+												"name": "Stanley"
+											}
+										],
+										"8": "\"5f01bada-0000-0d00-0000-635800a70000\""
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "_rid",
+										"type": "string"
+									},
+									{
+										"key": "1",
+										"name": "_ts",
+										"type": "bigint"
+									},
+									{
+										"key": "2",
+										"name": "id",
+										"type": "string"
+									},
+									{
+										"key": "3",
+										"name": "myid",
+										"type": "string"
+									},
+									{
+										"key": "4",
+										"name": "class",
+										"type": "string"
+									},
+									{
+										"key": "5",
+										"name": "date",
+										"type": "string"
+									},
+									{
+										"key": "6",
+										"name": "curriculum",
+										"type": "StructType(StructField(subject1,StringType,true), StructField(subject2,StringType,true), StructField(subject3,StringType,true))"
+									},
+									{
+										"key": "7",
+										"name": "student",
+										"type": "ArrayType(StructType(StructField(name,StringType,true)),true)"
+									},
+									{
+										"key": "8",
+										"name": "_etag",
+										"type": "string"
+									}
+								],
+								"truncated": false
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"0"
+									],
+									"seriesFieldKeys": [
+										"1"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/Synapse/providers/Microsoft.Synapse/workspaces/wsmarc/bigDataPools/sparkpool",
+				"name": "sparkpool",
+				"type": "Spark",
+				"endpoint": "https://wsmarc.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.2",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"# Read from Cosmos DB analytical store into a Spark DataFrame and display 10 rows from the DataFrame\n",
+					"# To select a preferred list of regions in a multi-region Cosmos DB account, add .option(\"spark.cosmos.preferredRegions\", \"<Region1>,<Region2>\")\n",
+					"\n",
+					"df = spark.read\\\n",
+					"    .format(\"cosmos.olap\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"cosmosynapse\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"MySampleDB\")\\\n",
+					"    .load()\n",
+					"\n",
+					"display(df.limit(10))"
+				],
+				"execution_count": 2
+			}
+		]
+	}
+}

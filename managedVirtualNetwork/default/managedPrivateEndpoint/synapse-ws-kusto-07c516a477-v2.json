@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-kusto-07c516a477-v2",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/Synapse/providers/Microsoft.Synapse/workspaces/wsmarc",
+		"groupId": "Kusto",
+		"fqdns": [
+			"adxpoolpool.wsmarc.kusto.azuresynapse.net"
+		]
+	}
+}

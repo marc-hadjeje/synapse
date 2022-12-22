@@ -1,0 +1,16 @@
+{
+	"name": "SqlServer1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=VM-SQL;initial catalog=AdventureWorksDW2019;user id=pipeline",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmNzIyNWU5MS1jMTllLTQ0MGMtOWQyMC01NmE4ODIyNjYzODkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "SelfIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"name": "monitor_spark_pool",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/Synapse/providers/microsoft.insights/privateLinkScopes/AMPLS_SCOPE",
+		"groupId": "azuremonitor",
+		"fqdns": [
+			"9b729634-6127-445e-acb0-760343aeaf1f.oms.opinsights.azure.com"
+		]
+	}
+}

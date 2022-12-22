@@ -1,0 +1,15 @@
+{
+	"name": "AzureDataLakeMH",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://asadatalakemarchadjeje.dfs.core.windows.net/"
+		},
+		"connectVia": {
+			"referenceName": "Integration-Managed-Runtime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

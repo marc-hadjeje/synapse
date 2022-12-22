@@ -1,0 +1,17 @@
+{
+	"name": "test DEP with adls",
+	"properties": {
+		"content": {
+			"query": "/* creation format*/\n\nIF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\n/* creation external data source DEP ADLS*/\n\tCREATE EXTERNAL DATA SOURCE target_dep_adlsg2 \n\tWITH (\n\t\tLOCATION = 'abfss://fakedp@fakedatalakefordep.dfs.core.windows.net' \n\t)\nGO\n\n\n/* data lake witoout mep*/\nIF EXISTS (SELECT * FROM sys.tables WHERE name = 'dump' AND type = 'U') DROP external TABLE dump;\nCREATE EXTERNAL TABLE dump\nWITH \n(  \tLOCATION = 'fakedp/targetdep.parquet' ,\n    DATA_SOURCE = target_dep_adlsg2,  \n    FILE_FORMAT = SynapseParquetFormat\n) AS \nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://fakedatalakesg.dfs.core.windows.net/fake/fake/test.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n\n\n/* data lake with MEP*/\n\tCREATE EXTERNAL DATA SOURCE target_dep_adlsg3 \n\tWITH (\n\t\tLOCATION = 'abfss://approval@datalakeapproval .dfs.core.windows.net' \n\t)\n\n\n\n\n\nIF EXISTS (SELECT * FROM sys.tables WHERE name = 'dump' AND type = 'U') DROP external TABLE dump;\n    create  EXTERNAL TABLE dump\nWITH \n(  \tLOCATION = '/fake/target.parquet' ,\n    DATA_SOURCE = target_dep_adlsg1,  \n    FILE_FORMAT = SynapseParquetFormat\n) AS \nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://fakedatalakesg.dfs.core.windows.net/fake/fake/test.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n\n\n\n\nselect * from dump",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "MaBase",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

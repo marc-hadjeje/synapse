@@ -1,0 +1,10 @@
+{
+	"name": "AzureSqlDatabase90",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/sandbox/providers/Microsoft.Sql/servers/sqldbmarc",
+		"groupId": "sqlServer",
+		"fqdns": [
+			"sqldbmarc.database.windows.net"
+		]
+	}
+}

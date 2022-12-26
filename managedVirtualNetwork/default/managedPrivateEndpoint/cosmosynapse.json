@@ -1,0 +1,10 @@
+{
+	"name": "cosmosynapse",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/Synapse/providers/Microsoft.DocumentDB/databaseAccounts/cosmosynapse",
+		"groupId": "Analytical",
+		"fqdns": [
+			"cosmosynapse.analytics.cosmos.azure.com"
+		]
+	}
+}

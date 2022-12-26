@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 25",
+	"properties": {
+		"content": {
+			"query": "-- This is auto-generated code\ninsert into  [dbo].[product]\nSELECT\n*\nFROM\n    OPENROWSET(\n        BULK 'https://asadatalakemarchadjeje.dfs.core.windows.net/wwi-02/customer-info/customerinfo.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0'\n    ) AS [result]\n\n\ncreatz tab\n\n\n\ncreate  TABLE dbo.utilisateur\n(\n    username VARCHAR(100),\n    gender VARCHAR(100),\n    phone VARCHAR(100),\n    email VARCHAR(255),\n    credicard   VARCHAR(255)\n   \n)",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlpool",
+				"poolName": "sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

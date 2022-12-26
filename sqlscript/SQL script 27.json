@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 27",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [id]\n,[first_name]\n FROM [dbo].[test]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlpool",
+				"poolName": "sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

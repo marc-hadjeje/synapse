@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sqlOnDemand--wsmarc",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/Synapse/providers/Microsoft.Synapse/workspaces/wsmarc",
+		"groupId": "sqlOnDemand",
+		"fqdns": [
+			"wsmarc-ondemand.07c516a4-7769-41f1-b7b5-9b67455bfbb9.sql.azuresynapse.net"
+		]
+	}
+}

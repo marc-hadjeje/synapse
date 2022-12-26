@@ -1,0 +1,10 @@
+{
+	"name": "AzureDataLakeStorage690",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/Synapse-MCW/providers/Microsoft.Storage/storageAccounts/asadatalakemarchadjeje",
+		"groupId": "dfs",
+		"fqdns": [
+			"asadatalakemarchadjeje.dfs.core.windows.net"
+		]
+	}
+}

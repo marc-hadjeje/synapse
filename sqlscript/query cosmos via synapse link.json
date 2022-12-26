@@ -1,0 +1,17 @@
+{
+	"name": "query cosmos via synapse link",
+	"properties": {
+		"content": {
+			"query": "IF (NOT EXISTS(SELECT * FROM sys.credentials WHERE name = 'cosmosynapse'))\n    CREATE CREDENTIAL [cosmosynapse1]\n    WITH IDENTITY = 'SHARED ACCESS SIGNATURE', SECRET = 'm4w0Ju0HzGPaYcWA1xOXrLvqtlONXbgugUpyQwobv1ANKr16c8EOKYOtAumdZtuYqyqUmiBgVz6rn7XEuQjDLw=='\nGO\n\n--delete from sys.credentials where CREDENTIAL_id=65536\n\n\nSELECT TOP 100 *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmosynapse;Database=MySampleDB',\n                OBJECT = 'MySampleDB',\n                SERVER_CREDENTIAL = 'cosmosynapse'\n) AS [volcanocollection]\n\n\n--\nSELECT TOP 10 *\nFROM OPENROWSET( \n       'CosmosDB',\n       'Account=cosmosynapse;Database=MySampleDB;Key=m4w0Ju0HzGPaYcWA1xOXrLvqtlONXbgugUpyQwobv1ANKr16c8EOKYOtAumdZtuYqyqUmiBgVz6rn7XEuQjDLw==',\n       MySampleDB) as documents\n\n\n\n-- exemple qui fonctionne\nSELECT TOP 10 *\nFROM OPENROWSET( \n       'CosmosDB',\n       'Account=synapselink-cosmosdb-sqlsample;Database=covid;Key=s5zarR2pT0JWH9k8roipnWxUYBegOuFGjJpSjGlR36y86cW0GQ6RaaG8kGjsRAQoWMw1QKTkkX8HQtFpJjC8Hg==',\n       Ecdc) as documents\n\n\n--\nSELECT TOP 10 *\nFROM OPENROWSET( \n       'CosmosDB',\n       'Account=synapselink-cosmosdb-sqlsample;Database=covid;Key=s5zarR2pT0JWH9k8roipnWxUYBegOuFGjJpSjGlR36y86cW0GQ6RaaG8kGjsRAQoWMw1QKTkkX8HQtFpJjC8Hg==',\n       Ecdc) as documents\n\n\n\n\n\n\n\n\n       ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "MaBase",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

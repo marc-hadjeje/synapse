@@ -1,5 +1,5 @@
 {
-	"name": "sample notebook 6",
+	"name": "Notebook 6 sample",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
@@ -13,12 +13,11 @@
 			"executorMemory": "28g",
 			"executorCores": 4,
 			"numExecutors": 2,
-			"runAsWorkspaceSystemIdentity": false,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "d6bbcad9-3428-4f24-9876-b08c953319ed"
+				"spark.autotune.trackingId": "ab7540b3-23a2-4d08-9c89-a6de027652fe"
 			}
 		},
 		"metadata": {
@@ -58,60 +57,12 @@
 					"collapsed": false
 				},
 				"source": [
-					"%%pyspark\r\n",
-					"df = spark.read.load('abfss://wwi-02@asadatalakemarchadjeje.dfs.core.windows.net/sale-small/Year=2019/Quarter=Q4/Month=12/Day=20191201/sale-small-20191201-snappy.parquet', format='parquet')\r\n",
-					"display(df.limit(10))"
-				],
-				"execution_count": 1
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					}
-				},
-				"source": [
-					"Selectfields = df.select(\r\n",
-					"    \"TransactionID\", \"CustomerID\",\"ProductID\")\r\n",
-					"\r\n",
-					"# Populate a temporary view so we can query from SQL\r\n",
-					"Selectfields.createOrReplaceTempView(\"Select_fields\")\r\n",
-					"\r\n",
-					"Selectfields.show(100)"
-				],
-				"execution_count": 3
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					},
-					"microsoft": {
-						"language": "sparksql"
-					},
-					"collapsed": false
-				},
-				"source": [
-					"%%sql\r\n",
-					"\r\n",
-					"CREATE OR REPLACE TEMPORARY VIEW order_products\r\n",
-					"AS\r\n",
-					"select * from Select_fields\r\n",
-					"order by 1    "
+					" %%pyspark\r\n",
+					" df = spark.read.load('abfss://files@asadatalakemarchadjeje.dfs.core.windows.net/sales/orders/2019.csv', format='csv'\r\n",
+					" ## If header exists uncomment line below\r\n",
+					" ##, header=True\r\n",
+					" )\r\n",
+					" display(df.limit(10))"
 				],
 				"execution_count": 4
 			},
@@ -126,12 +77,31 @@
 						"transient": {
 							"deleting": false
 						}
-					}
+					},
+					"microsoft": {
+						"language": "python"
+					},
+					"collapsed": false
 				},
 				"source": [
-					"order = sqlContext.table(\"order_products\")\r\n",
+					" %%pyspark\r\n",
+					" from pyspark.sql.types import *\r\n",
+					" from pyspark.sql.functions import *\r\n",
 					"\r\n",
-					"order.show(100)"
+					" orderSchema = StructType([\r\n",
+					"     StructField(\"SalesOrderNumber\", StringType()),\r\n",
+					"     StructField(\"SalesOrderLineNumber\", IntegerType()),\r\n",
+					"     StructField(\"OrderDate\", DateType()),\r\n",
+					"     StructField(\"CustomerName\", StringType()),\r\n",
+					"     StructField(\"Email\", StringType()),\r\n",
+					"     StructField(\"Item\", StringType()),\r\n",
+					"     StructField(\"Quantity\", IntegerType()),\r\n",
+					"     StructField(\"UnitPrice\", FloatType()),\r\n",
+					"     StructField(\"Tax\", FloatType())\r\n",
+					"     ])\r\n",
+					"\r\n",
+					" df = spark.read.load('abfss://files@asadatalakemarchadjeje.dfs.core.windows.net/sales/orders/*.csv', format='csv', schema=orderSchema)\r\n",
+					" display(df.limit(100))"
 				],
 				"execution_count": 5
 			}

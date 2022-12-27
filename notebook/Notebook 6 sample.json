@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "ab7540b3-23a2-4d08-9c89-a6de027652fe"
+				"spark.autotune.trackingId": "07bc4c13-1f35-4287-9ecf-a184761f9de9"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 					" )\r\n",
 					" display(df.limit(10))"
 				],
-				"execution_count": 4
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -102,6 +102,46 @@
 					"\r\n",
 					" df = spark.read.load('abfss://files@asadatalakemarchadjeje.dfs.core.windows.net/sales/orders/*.csv', format='csv', schema=orderSchema)\r\n",
 					" display(df.limit(100))"
+				],
+				"execution_count": 3
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df.printSchema()"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					" customers = df['CustomerName', 'Email']\r\n",
+					" print(customers.count())\r\n",
+					" print(customers.distinct().count())\r\n",
+					" display(customers.distinct())"
 				],
 				"execution_count": 5
 			}

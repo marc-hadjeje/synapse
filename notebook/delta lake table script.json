@@ -1,0 +1,164 @@
+{
+	"name": "delta lake table script",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkpool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "4198e189-83eb-4ac9-b88d-6341158ba1b2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/da8f85bb-b915-4ec0-9d86-578621df7e56/resourceGroups/Synapse/providers/Microsoft.Synapse/workspaces/wsmarc/bigDataPools/sparkpool",
+				"name": "sparkpool",
+				"type": "Spark",
+				"endpoint": "https://wsmarc.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.2",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df = spark.read.load('abfss://files@asadatalakemarchadjeje.dfs.core.windows.net/sales/orders/2019.csv', format='csv')\r\n",
+					"# Save the dataframe as a delta table\r\n",
+					"delta_table_path = \"abfss://files@asadatalakemarchadjeje.dfs.core.windows.net/sales/orders/\"\r\n",
+					"df.write.format(\"delta\").save(delta_table_path)"
+				],
+				"execution_count": 20
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"\r\n",
+					"new_df=spark.read.load('abfss://files@asadatalakemarchadjeje.dfs.core.windows.net/sales/orders/2020.csv', format='csv')\r\n",
+					"new_df.write.format(\"delta\").mode(\"overwrite\").save(delta_table_path)\r\n",
+					""
+				],
+				"execution_count": 23
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"new_df_2021=spark.read.load('abfss://files@asadatalakemarchadjeje.dfs.core.windows.net/sales/orders/2021.csv', format='csv')\r\n",
+					"new_df_2021.write.format(\"delta\").mode(\"append\").save(delta_table_path)\r\n",
+					" "
+				],
+				"execution_count": 25
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#timetravel\r\n",
+					"\r\n",
+					"df = spark.read.format(\"delta\").option(\"versionAsOf\", 0).load(delta_table_path)\r\n",
+					"\r\n",
+					"df = spark.read.format(\"delta\").option(\"timestampAsOf\", '2022-01-01').load(delta_table_path)\r\n",
+					"\r\n",
+					""
+				],
+				"execution_count": 26
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"\r\n",
+					"\r\n",
+					"#table managé\r\n",
+					"# Save a dataframe as a managed table\r\n",
+					"df.write.format(\"delta\").saveAsTable(\"MyManagedTable\")\r\n",
+					"## specify a path option to save as an external table\r\n",
+					"delta_table_path = \"abfss://files@asadatalakemarchadjeje.dfs.core.windows.net/sales/orders/new/\"\r\n",
+					"df.write.format(\"delta\").option(\"path\", delta_table_path).saveAsTable(\"MyExternalTable2\")"
+				],
+				"execution_count": 31
+			}
+		]
+	}
+}

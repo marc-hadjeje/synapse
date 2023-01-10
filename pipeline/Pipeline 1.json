@@ -83,12 +83,6 @@
 						]
 					}
 				},
-				"inputs": [
-					{
-						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
-					}
-				],
 				"outputs": [
 					{
 						"referenceName": "SqlPoolTable1",

@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "wsmarc"
+		},
+		"ADSLG2_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorageDEP_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"SqlServer1_connectionString": {
+			"value": ""
+		},
+		"cosmosynapse_connectionString": {
+			"value": ""
+		},
+		"wsmarc-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:wsmarc.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"ADSLG2_properties_typeProperties_url": {
+			"value": "https://asadatalakemarchadjeje.dfs.core.windows.net/"
+		},
+		"AzureDataLakeMH_properties_typeProperties_url": {
+			"value": "https://asadatalakemarchadjeje.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://fakedatalakesg.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://datalakeapproval.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorageDEP_properties_typeProperties_url": {
+			"value": "https://fakedatalakefordep.dfs.core.windows.net/"
+		},
+		"wsmarc-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://sftpmarco.dfs.core.windows.net"
+		}
+	}
+}
